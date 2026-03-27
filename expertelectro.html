@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Expertiză Tehnică în Instalații Electrice</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy-deep: #0b1215;
+  --gold: #10b981;
+  --text-light: #f0fdf4;
+  --glass: rgba(16, 185, 129, 0.08);
+  --border: rgba(16, 185, 129, 0.2);
+}
+
+html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+  width: 100%; 
+  background-color: #f1f4f8; 
+  font-family: 'Plus Jakarta Sans', sans-serif; 
+  color: #1a1a1a; 
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAVBAR ── */
+.topnav {
+  background: rgba(11, 18, 21, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  border-bottom: 1px solid rgba(16,185,129,0.15);
+}
+
+/* Top row: logo + burger */
+.topnav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+}
+
+.logo-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 18px 0;
+  display: block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.logo-link .logo-white { color: #ffffff; }
+.logo-link .logo-green { color: var(--gold); }
+
+/* Burger button */
+.burger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+  /* visible on mobile by default */
+}
+
+.burger-btn .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animate burger → X when open */
+.burger-btn.open .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.burger-btn.open .bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger-btn.open .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Dropdown nav links — hidden by default on mobile */
+.nav-links {
+  display: none;
+  flex-direction: column;
+  border-top: 1px solid #e5e7eb;
+  overflow: visible;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.nav-links.open {
+  display: flex;
+  animation: slideDown 0.25s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.nav-links a {
+  color: #111111;
+  text-decoration: none;
+  padding: 16px 5%;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-links a:last-child { border-bottom: none; }
+.nav-links a:hover { background: var(--glass); color: var(--gold); }
+.nav-links a.highlight { color: var(--gold); }
+
+@media screen and (min-width: 992px) {
+  .topnav-bar { padding: 0; flex: 0 0 auto; }
+  .burger-btn { display: none; }
+
+  .topnav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+  }
+
+  .nav-links {
+    display: flex !important;
+    flex-direction: row;
+    border-top: none;
+    animation: none;
+    flex: 0 0 auto;
+    position: static;
+    box-shadow: none;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .nav-links a {
+    padding: 20px 20px;
+    border-bottom: none;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.85);
+  }
+  .nav-links a:hover { background: transparent; color: var(--gold); }
+
+  .hero-content h1 { font-size: 4.8rem; }
+  .hero-btns { flex-direction: row; justify-content: center; }
+  .grid { grid-template-columns: repeat(6, 1fr); gap: 24px; }
+  .grid .glass-card { grid-column: span 2; }
+  .grid .glass-card:nth-child(4) { grid-column: 2 / span 2; }
+  .grid .glass-card:nth-child(5) { grid-column: 4 / span 2; }
+  .section-title { text-align: center; }
+}
+
+/* ── REST OF STYLES (unchanged) ── */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: column;
+  text-align: center;
+  padding: 120px 7% 50px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to right, rgba(11,18,21,0.96) 40%, rgba(11,18,21,0.55) 100%),
+              url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069') center/cover no-repeat;
+}
+.hero-content { max-width: 640px; margin: auto; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.hero-supertitle {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; text-align: center;
+}
+.hero-content h1 { font-size: 3.2rem; font-weight: 900; margin-bottom: 20px; line-height: 1.08; color: #ffffff; letter-spacing: -0.5px; }
+.hero-content h1 span { color: var(--gold); }
+.hero-content p { margin-bottom: 34px; color: #c9d4d9; font-size: 1.05rem; line-height: 1.7; max-width: 540px; margin-left: auto; margin-right: auto; }
+
+.hero-btns { display: flex; flex-direction: row; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.btn {
+  padding: 15px 30px; border-radius: 50px; font-weight: 700; text-decoration: none;
+  text-align: center; border: none; font-family: inherit; cursor: pointer;
+  font-size: 0.95rem; transition: all 0.22s ease; display: inline-block;
+}
+.btn-filled { background: var(--gold); color: white; }
+.btn-filled:hover { background: #0da872; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16,185,129,0.45); }
+.btn-outline { border: 2px solid rgba(255,255,255,0.45); color: white; background: transparent; }
+.btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+
+.hero-address {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.9rem; font-weight: 700;
+  color: rgba(255,255,255,0.8); text-decoration: none;
+  letter-spacing: 0.3px;
+  align-self: flex-start;
+  padding: 20px 0 10px 0;
+  position: relative; z-index: 10;
+}
+.hero-address svg { color: var(--gold); stroke: var(--gold); flex-shrink: 0; }
+.hero-address:hover { color: white; }
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  width: 100%;
+  max-width: 640px;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  flex: 1;
+  min-width: 120px;
+}
+.stat-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.72rem;
+  opacity: 0.6;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.stat-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.1);
+  align-self: stretch;
+  margin: 10px 0;
+}
+@media (max-width: 480px) {
+  .stat-divider { display: none; }
+  .hero-stats { gap: 10px; }
+  .hero-stat { min-width: 45%; }
+  .hero-address { display: flex; }
+  .stat-num { font-size: 1.7rem; }
+}
+
+section { padding: 60px 5%; }
+.section-title { text-align: center; margin-bottom: 40px; font-size: 2.2rem; font-weight: 800; color: #1a1a1a; }
+
+.grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.glass-card { background: #ffffff; border: 2px solid #e5e7eb; padding: 25px; border-radius: 20px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); transition: border-color 0.2s ease; color: #1a1a1a; }
+.glass-card:hover { border-color: #10b981; }
+.glass-card:active { border-color: #10b981; }
+.glass-card h3 { color: #10b981; margin-bottom: 15px; font-size: 1.25rem; font-weight: 700; }
+
+.learn-more {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(16,185,129,0.3);
+  padding-bottom: 2px;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+.learn-more:hover { opacity: 0.7; border-color: var(--gold); }
+
+.card-icon {
+  width: 58px; height: 58px;
+  border-radius: 16px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+  font-size: 1.6rem;
+}
+
+ul { list-style: none; }
+li { margin-bottom: 10px; padding-left: 20px; position: relative; font-size: 0.95rem; color: #1a1a1a; }
+li::before { content: "•"; color: var(--gold); position: absolute; left: 0; font-weight: bold; }
+
+.exp-card { border-left: 5px solid var(--gold); background: rgba(255,255,255,0.03); padding: 25px; border-radius: 0 20px 20px 0; }
+.exp-card h4 { color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 10px; font-weight: 800; }
+
+/* Scroll fade-in */
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.js-ready .fade-in {
+  opacity: 0;
+  transform: translateY(25px);
+}
+.js-ready .fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Stagger delay for grid children */
+.fade-in:nth-child(2) { transition-delay: 0.1s; }
+.fade-in:nth-child(3) { transition-delay: 0.2s; }
+.fade-in:nth-child(4) { transition-delay: 0.3s; }
+
+footer { padding: 80px 5% 40px; text-align: center; border-top: 1px solid #e5e7eb; }
+
+/* AUDIT SECTION */
+.audit-section {
+  padding: 80px 5%;
+  border-top: 1px solid #e5e7eb;
+}
+.audit-inner {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+.audit-inner h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+}
+.audit-inner h2 span { color: var(--gold); }
+.audit-inner p {
+  opacity: 0.7;
+  font-size: 0.97rem;
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+.audit-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.whatsapp-only { display: none !important; }
+@media (max-width: 768px) {
+  .whatsapp-only { display: flex !important; }
+  .audit-cards { grid-template-columns: 1fr; }
+}
+.audit-contact-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px 20px;
+  text-decoration: none;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.audit-contact-card:hover {
+  background: rgba(16,185,129,0.14);
+  border-color: var(--gold);
+}
+.audit-contact-card .audit-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: rgba(16,185,129,0.12);
+  border: 1px solid rgba(16,185,129,0.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.audit-contact-card:last-child .audit-icon {
+  width: 62px; height: 62px;
+  border-radius: 16px;
+}
+.audit-contact-card .audit-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.audit-contact-card .audit-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.audit-note {
+  font-size: 0.78rem;
+  opacity: 0.35;
+  margin-top: 30px;
+}
+
+/* PROCES DE LUCRU - Timeline */
+.process-section { padding: 60px 5% 80px; }
+
+/* ZIGZAG TIMELINE */
+.steps {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* vertical line on mobile */
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold), rgba(16,185,129,0.05));
+  z-index: 0;
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 0 0 36px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  flex-shrink: 0;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 4px var(--navy-deep), 0 0 0 6px var(--gold);
+}
+
+.step-content {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px 22px;
+  flex: 1;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+.step-content h3 {
+  color: #10b981;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.step-content p {
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 1.65;
+}
+.step-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(16,185,129,0.12);
+  border-radius: 50px;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
+/* DESKTOP: zigzag */
+@media (min-width: 992px) {
+  .steps {
+    max-width: 1100px;
+    gap: 0;
+  }
+  .steps::before { display: none; }
+  
+  .step {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    align-items: center;
+    gap: 0;
+    padding-bottom: 0;
+    min-height: 160px;
+  }
+
+  /* odd steps: content LEFT, number CENTER, empty RIGHT */
+  .step:nth-child(odd) { direction: ltr; }
+  .step:nth-child(odd) .step-content { grid-column: 1; text-align: right; padding-right: 30px; }
+  .step:nth-child(odd) .step-number { grid-column: 2; margin: auto; }
+  .step:nth-child(odd) .step-right { grid-column: 3; }
+
+  /* even steps: empty LEFT, number CENTER, content RIGHT */
+  .step:nth-child(even) .step-left { grid-column: 1; }
+  .step:nth-child(even) .step-number { grid-column: 2; margin: auto; }
+  .step:nth-child(even) .step-content { grid-column: 3; text-align: left; padding-left: 30px; }
+
+  /* connecting vertical dotted line */
+  .step-center-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .step-center-line::before {
+    content: '';
+    position: absolute;
+    top: 50px;
+    bottom: -50px;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--gold) 0px, var(--gold) 6px, transparent 6px, transparent 12px);
+  }
+  .step:last-child .step-center-line::before { display: none; }
+
+  .step-content {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 26px;
+  }
+  .step:nth-child(odd) .step-tag { text-align: right; display: block; }
+  .step-spacer { display: block; }
+}
+
+@media screen and (min-width: 992px) {
+  .hero-content h1 { font-size: 4.8rem; }
+  .hero-btns { flex-direction: row; justify-content: center; }
+  .grid { grid-template-columns: repeat(6, 1fr); gap: 24px; }
+  .grid .glass-card { grid-column: span 2; }
+  .grid .glass-card:nth-child(4) { grid-column: 2 / span 2; }
+  .grid .glass-card:nth-child(5) { grid-column: 4 / span 2; }
+  .section-title { text-align: center; }
+  /* zigzag handled in .steps desktop css above */
+}
+
+
+/* DROPDOWN NAV */
+.nav-item-dropdown { position: relative; }
+.nav-item-dropdown > a { cursor: pointer; display: flex; align-items: center; gap: 5px; }
+.nav-item-dropdown > a::after {
+  content: "";
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-top: -3px;
+  transition: transform 0.2s;
+}
+.nav-item-dropdown.open > a::after { transform: rotate(-135deg); margin-top: 3px; }
+.dropdown-menu {
+  display: none; position: absolute; top: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%); background: #ffffff;
+  border: 1px solid rgba(16,185,129,0.2); border-radius: 14px;
+  padding: 8px 0; min-width: 230px; z-index: 1000;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+.dropdown-menu a {
+  display: block; padding: 11px 20px; font-size: 0.88rem;
+  color: #333; text-decoration: none; font-weight: 600;
+  transition: all 0.15s; border-radius: 8px; margin: 2px 8px;
+}
+.dropdown-menu a:hover { color: #10b981; background: rgba(16,185,129,0.1); }
+.nav-item-dropdown.open .dropdown-menu { display: block; }
+@media (max-width: 991px) {
+  .nav-item-dropdown > a::after { display: inline-block; }
+  .dropdown-menu {
+    display: none; position: static; transform: none;
+    background: rgba(16,185,129,0.07); border: none;
+    border-left: 2px solid rgba(16,185,129,0.2);
+    border-radius: 0; box-shadow: none; padding: 0; margin: 0 0 0 10px;
+  }
+  .nav-item-dropdown.open .dropdown-menu { display: block; }
+  .dropdown-menu a { padding: 8px 16px; font-size: 0.85rem; margin: 0; border-radius: 0; color: #333; }
+}
+
+/* Hero decorative elements */
+.hero-deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.hero-deco svg {
+  position: absolute;
+  opacity: 0.07;
+}
+.hero-deco .deco-bolt-1 { top: 8%; right: 12%; width: 80px; opacity: 0.12; }
+.hero-deco .deco-bolt-2 { bottom: 20%; right: 28%; width: 50px; opacity: 0.06; }
+.hero-deco .deco-bolt-3 { top: 30%; left: 5%; width: 40px; opacity: 0.05; }
+.hero-deco .deco-circuit { top: 0; right: 0; width: 500px; height: 100%; opacity: 0.04; }
+.hero-deco .deco-ring-1 {
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  border: 1px solid rgba(16,185,129,0.12);
+  position: absolute;
+  top: -80px; right: -100px;
+}
+.hero-deco .deco-ring-2 {
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(16,185,129,0.06);
+  position: absolute;
+  top: -180px; right: -200px;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-address { z-index: 10; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-bar">
+    <a href="#home" class="logo-link">
+      <span class="logo-white">energy</span><span class="logo-green">Select</span>
+    </a>
+
+    <!-- Hamburger button with 3 bars -->
+    <button class="burger-btn" id="burgerBtn" aria-label="Meniu" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+
+  <!-- Nav links: hidden on mobile, toggled by burger -->
+  <div class="nav-links" id="navLinks">
+    <div class="nav-item-dropdown"><a href="#servicii">Servicii</a><div class="dropdown-menu"><a href="electricitate.html" onclick="closeMenu()">Instalatii Electrice</a><a href="energie.html" onclick="closeMenu()">Panouri Fotovoltaice</a><a href="automatizari.html" onclick="closeMenu()">Casa Inteligenta</a><a href="panouri.html" onclick="closeMenu()">Panouri Electrice</a><a href="mentenanta.html" onclick="closeMenu()">Remedieri si Mentenanta</a></div></div>
+    <a href="experienta.html" onclick="closeMenu()">Experiență</a>
+    <a href="#proces" onclick="closeMenu()">Proces de Lucru</a>
+    <a href="#locatie" onclick="closeMenu()">Locație</a>
+    <a href="#contact" onclick="closeMenu()" class="highlight">Audit</a>
+  </div>
+</nav>
+
+<header class="hero-section" id="home">
+  <div class="hero-deco">
+    <div class="deco-ring-1"></div>
+    <div class="deco-ring-2"></div>
+    <!-- Lightning bolt 1 - large, top right -->
+    <svg class="deco-bolt-1" viewBox="0 0 24 24" fill="#10b981">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+    <!-- Lightning bolt 2 - small, mid right -->
+    <svg class="deco-bolt-2" viewBox="0 0 24 24" fill="#10b981">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+    <!-- Lightning bolt 3 - tiny, left -->
+    <svg class="deco-bolt-3" viewBox="0 0 24 24" fill="#10b981">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+    <!-- Circuit lines -->
+    <svg class="deco-circuit" viewBox="0 0 500 800" fill="none" stroke="#10b981" stroke-width="1">
+      <path d="M450 0 L450 100 L380 100 L380 180 L300 180"/>
+      <path d="M500 200 L420 200 L420 280 L340 280 L340 360"/>
+      <path d="M480 400 L400 400 L400 480 L320 480"/>
+      <circle cx="380" cy="100" r="4" fill="#10b981"/>
+      <circle cx="420" cy="200" r="4" fill="#10b981"/>
+      <circle cx="400" cy="400" r="4" fill="#10b981"/>
+      <circle cx="340" cy="280" r="3" fill="#10b981"/>
+      <circle cx="300" cy="180" r="3" fill="#10b981"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <span class="hero-supertitle">Electrician autorizat — București</span>
+    <h1>Electricianul tău<br>de <span>Încredere</span></h1>
+    <p>Instalații electrice, fotovoltaice, case inteligente și panouri electrice — pentru casa și familia ta - </p>
+    <div class="hero-btns">
+      <a href="#servicii" class="btn btn-filled">Vezi Servicii</a>
+      <a href="experienta.html" class="btn btn-outline">Vezi Experiența</a>
+    </div>
+  </div>
+  <div style="display:flex; align-items:flex-end; justify-content:space-between; padding: 0 0 10px 0; position:relative; z-index:10;">
+    <a href="#locatie" class="hero-address">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Bulevardul Eroilor nr. 22, București
+    </a>
+  </div>
+</header>
+
+<section id="servicii">
+  <h2 class="section-title">Ce pot face pentru tine</h2>
+  <div class="grid">
+
+    <div class="glass-card fade-in">
+      <div class="card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <h3>Instalații Electrice</h3>
+      <ul>
+        <li>Instalații noi pentru case și apartamente.</li>
+        <li>Remedieri și modernizări ale instalațiilor vechi.</li>
+      </ul>
+      <a href="electricitate.html" class="learn-more">Află mai mult →</a>
+    </div>
+
+    <div class="glass-card fade-in">
+      <div class="card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </div>
+      <h3>Panouri Fotovoltaice</h3>
+      <ul>
+        <li>Instalare sisteme solare pentru casă sau curte.</li>
+        <li>On-grid și off-grid cu stocare în baterii.</li>
+      </ul>
+      <a href="energie.html" class="learn-more">Află mai mult →</a>
+    </div>
+
+    <div class="glass-card fade-in">
+      <div class="card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <h3>Casă Inteligentă</h3>
+      <ul>
+        <li>Automatizare iluminat, jaluzele și prize.</li>
+        <li>Control din telefon — Smart Home / BMS.</li>
+      </ul>
+      <a href="automatizari.html" class="learn-more">Află mai mult →</a>
+    </div>
+
+    <div class="glass-card fade-in">
+      <div class="card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+      </div>
+      <h3>Panouri Electrice</h3>
+      <ul>
+        <li>Proiectare și asamblare tablouri electrice.</li>
+        <li>Montaj și punere în funcțiune la domiciliu.</li>
+      </ul>
+      <a href="panouri.html" class="learn-more">Află mai mult →</a>
+    </div>
+
+    <div class="glass-card fade-in">
+      <div class="card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
+      </div>
+      <h3>Remedieri & Mentenanță</h3>
+      <ul>
+        <li>Depanare rapidă la defecțiuni electrice.</li>
+        <li>Verificare și certificare instalații existente.</li>
+      </ul>
+      <a href="mentenanta.html" class="learn-more">Află mai mult →</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="proces" class="process-section">
+  <h2 class="section-title">Procesul de Lucru</h2>
+
+  <div class="steps">
+
+    <div class="step fade-in">
+      <div class="step-content">
+        <div class="step-tag">Primul Contact</div>
+        <h3>Consultație & Evaluare Inițială</h3>
+        <p>Totul începe cu o discuție despre nevoile tale. Analizez situația existentă, tipul de clădire și consumatorii electrici planificați. Efectuez o vizită pe teren pentru a evalua corect condițiile reale înainte de orice propunere.</p>
+      </div>
+      <div class="step-center-line"><div class="step-number">1</div></div>
+      <div class="step-spacer step-right"></div>
+    </div>
+
+    <div class="step fade-in">
+      <div class="step-spacer step-left"></div>
+      <div class="step-center-line"><div class="step-number">2</div></div>
+      <div class="step-content">
+        <div class="step-tag">Planificare</div>
+        <h3>Definirea Planului Electric</h3>
+        <p>Stabilesc traseele cablurilor, pozițiile prizelor, întrerupătoarelor și corpurilor de iluminat, dimensionarea circuitelor și tipul de conductori necesari. Planul respectă normativul I7 și toate cerințele ANRE în vigoare.</p>
+      </div>
+    </div>
+
+    <div class="step fade-in">
+      <div class="step-content">
+        <div class="step-tag">Proiectare</div>
+        <h3>Realizarea Proiectului Tehnic</h3>
+        <p>Elaborez schema tehnică completă: punctul de intrare al alimentării, dispunerea tabloului electric, traseele conductorilor, dozele de ramificație și toate detaliile de montaj. Proiectul include calcule de sarcină și scheme logice acolo unde sunt necesare.</p>
+      </div>
+      <div class="step-center-line"><div class="step-number">3</div></div>
+      <div class="step-spacer step-right"></div>
+    </div>
+
+    <div class="step fade-in">
+      <div class="step-spacer step-left"></div>
+      <div class="step-center-line"><div class="step-number">4</div></div>
+      <div class="step-content">
+        <div class="step-tag">Execuție</div>
+        <h3>Montaj & Instalare</h3>
+        <p>Execut instalația conform proiectului: trasarea șanțurilor, pozarea tuburilor de protecție (copex), tragerea cablurilor, montarea tabloului electric cu siguranțe și protecții diferențiale, legăturile în doze și montarea aparatajului.</p>
+      </div>
+    </div>
+
+    <div class="step fade-in">
+      <div class="step-content">
+        <div class="step-tag">Control Calitate</div>
+        <h3>Verificare & Teste</h3>
+        <p>Efectuez măsurători de rezistență de izolație, verificarea prizelor de pământ și testarea tuturor circuitelor. Fiecare lucrare este verificată înainte de punerea în funcțiune pentru a garanta siguranța și conformitatea cu standardele tehnice.</p>
+      </div>
+      <div class="step-center-line"><div class="step-number">5</div></div>
+      <div class="step-spacer step-right"></div>
+    </div>
+
+    <div class="step fade-in">
+      <div class="step-spacer step-left"></div>
+      <div class="step-center-line"><div class="step-number">6</div></div>
+      <div class="step-content">
+        <div class="step-tag">Finalizare</div>
+        <h3>Recepție & Documentație</h3>
+        <p>La final predau instalația împreună cu documentația completă: procesul verbal de recepție, schema instalației executate și, dacă este cazul, rapoartele de măsurători. Rămân disponibil pentru mentenanță preventivă și intervenții ulterioare.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="locatie" style="padding: 60px 5%; border-top: 1px solid #e5e7eb;">
+  <h2 class="section-title">Locație</h2>
+  <div style="display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 900px; margin: 0 auto;" id="locatie-grid">
+    <div style="display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+      <div style="display: flex; align-items: flex-start; gap: 14px;">
+        <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <p style="font-size: 0.72rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">Adresă</p>
+          <p style="font-size: 1rem; font-weight: 600;">Bulevardul Eroilor nr. 22</p>
+          <p style="font-size: 0.9rem; opacity: 0.6;">București, România</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://www.google.com/maps/search/Bulevardul+Eroilor+nr.+22,+Bucuresti" target="_blank" style="display: block; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 10px 40px rgba(0,0,0,0.4); position: relative; text-decoration: none;">
+      <iframe
+        src="https://maps.google.com/maps?q=Bulevardul+Eroilor+nr+22+Bucuresti&output=embed&z=16"
+        width="100%" height="280" style="border:0; display:block; pointer-events:none;" allowfullscreen="" loading="lazy">
+      </iframe>
+      <div style="position: absolute; inset: 0; background: transparent; cursor: pointer;"></div>
+    </a>
+  </div>
+</section>
+
+<style>
+@media (min-width: 768px) {
+  #locatie-grid { grid-template-columns: 1fr 2fr !important; align-items: center; }
+}
+</style>
+
+<section class="audit-section" id="contact">
+  <div class="audit-inner">
+    <h2>Solicită un <span>Audit Electric</span></h2>
+    <p>Verific instalația și ofer o evaluare tehnică completă. Contactează-mă prin oricare din următoarele metode și stabilim împreună pașii următori.</p>
+
+    <div class="audit-cards">
+      <a href="tel:+40724231788" class="audit-contact-card fade-in">
+        <div class="audit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <span class="audit-label">Telefon</span>
+    
+      </a>
+
+      <a href="https://wa.me/40724231788" class="audit-contact-card fade-in whatsapp-only" target="_blank">
+        <div class="audit-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+        </div>
+        <span class="audit-label">WhatsApp</span>
+      </a>
+
+      <a href="/cdn-cgi/l/email-protection#86f4e7e2f3a8eaf3f6e7f5e5f3c6e1ebe7efeaa8e5e9eb" class="audit-contact-card fade-in">
+        <div class="audit-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <span class="audit-label">Email</span>
+      </a>
+    </div>
+
+    <p class="audit-note">&copy; 2026 Expert Electro Engineering. Toate drepturile rezervate.</p>
+  </div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const burgerBtn = document.getElementById('burgerBtn');
+  const navLinks  = document.getElementById('navLinks');
+
+  burgerBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    const isOpen = navLinks.classList.toggle('open');
+    burgerBtn.classList.toggle('open', isOpen);
+    burgerBtn.setAttribute('aria-expanded', isOpen);
+  });
+
+  function closeMenu() {
+    navLinks.classList.remove('open');
+    burgerBtn.classList.remove('open');
+    burgerBtn.setAttribute('aria-expanded', false);
+  }
+
+  // Close when clicking anywhere outside the nav
+  document.addEventListener('click', function (e) {
+    if (!navLinks.contains(e.target) && !burgerBtn.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth >= 992) closeMenu();
+  });
+
+  // Dropdown click toggle - works on both mobile and desktop
+  document.querySelectorAll('.nav-item-dropdown').forEach(function(dropdown) {
+    const toggle = dropdown.querySelector('a');
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    });
+  });
+  document.addEventListener('click', function(e) {
+    document.querySelectorAll('.nav-item-dropdown').forEach(function(dropdown) {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+  });
+
+  // Scroll fade-in
+  document.body.classList.add('js-ready');
+  const allFadeEls = document.querySelectorAll('.fade-in');
+  // Make visible immediately if already in viewport
+  allFadeEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) el.classList.add('visible');
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  allFadeEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
